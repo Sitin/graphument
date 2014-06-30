@@ -3,8 +3,17 @@
  */
 
 
-var expect = require('chai').expect,
-    Graphument = require('../lib/graphument'),
+// Testing dependencies:
+var chai = require('chai'),
+    sinon = require("sinon"),
+    expect = chai.expect;
+
+// Setup Chai
+chai.use(require('chai-as-promised'));
+chai.use(require("sinon-chai"));
+
+// SUT
+var Graphument = require('../lib/graphument'),
     graphument = new Graphument();
 
 
