@@ -1,0 +1,4 @@
+{
+  "laxcomma": true,
+  "globals": ["describe", "it", "beforeEach", "afterEach"]
+}
