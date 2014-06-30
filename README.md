@@ -1,4 +1,12 @@
 graphument
 ==========
 
-Tool that matches documents to graphs.
+Document-graph mapper tool that coverts documents into graphs.
+
+
+Installation
+------------
+
+```bash
+npm install graphument --save
+```
