@@ -4,13 +4,13 @@
 
 
 var expect = require('chai').expect,
-    graphument = require('..'),
+    Sut = require('..'),
     Graphument = require('../lib/graphument');
 
 
 describe('main module', function () {
-    it('should export instance of Graphument', function (done) {
-        expect(graphument).to.be.instanceOf(Graphument);
-        done();
+    it('should export Graphument constructor', function() {
+        expect(Sut).to.be.a('function');
+        expect(new Sut()).to.be.instanceOf(Graphument);
     });
 });

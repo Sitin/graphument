@@ -3,5 +3,4 @@
  */
 
 
-var Graphument = require('./lib/graphument');
-module.exports = new Graphument();
+module.exports = require('./lib/graphument');
