@@ -17,20 +17,26 @@ var Graphument = require('../lib/graphument'),
     graphument = new Graphument();
 
 
-describe('graphument', function() {
+describe('graphument', function () {
     "use strict";
 
-    it('should be able to connect', function() {
+    // TODO: Replace with not so stupid test
+    it('should be able to connect', function () {
         expect(graphument).to.have.property('connect');
         expect(graphument.connect).to.be.a('function');
     });
 
-    it('should have Mapper constructor', function() {
+    it('should have Mapper constructor', function () {
         expect(graphument).to.have.property('Mapper');
         expect(graphument.Mapper).to.be.a('function');
     });
 
-    it('should return the same Mapper each time', function() {
-       expect(graphument.Mapper).equals(graphument.Mapper);
+    it('should return the same Mapper each time', function () {
+        expect(graphument.Mapper).equals(graphument.Mapper);
+    });
+
+    it('should have defaults property', function () {
+        expect(graphument).to.have.property('defaults');
+        expect(graphument.defaults).to.be.an('object');
     });
 });

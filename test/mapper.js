@@ -15,25 +15,41 @@ chai.use(require("sinon-chai"));
 // SUT
 var Graphument = require('../lib/graphument'),
     graphument = new Graphument(),
-    Mapper = graphument.Mapper;
+    Mapper = graphument.Mapper,
+    mapper;
 
 
-describe('graphument', function() {
+beforeEach(function() {
+    "use strict";
+    mapper = new Mapper();
+});
+
+
+describe('graphument', function () {
     "use strict";
 
-    it('should have rules accessor', function() {
-        expect(new Mapper()).to.have.property('rules');
+    it('should have rules accessor', function () {
+        expect(mapper).to.have.property('rules');
     });
 
-    it('should import rules at construction', function() {
-        var mapper = new Mapper({eggs: 'Spam'});
+    it('should support labels', function () {
+        expect(new Mapper('Spam')).to.have.property('label', 'Spam');
+    });
+
+    it('should set empty labels to default', function () {
+        mapper = new Mapper();
+        graphument.defaults.label = 'Spam';
+        expect(mapper).to.have.property('label', 'Spam');
+    });
+
+    it('should import rules at construction', function () {
+        var mapper = new Mapper('Spam', {eggs: 'Spam'});
 
         // TODO: Remove implementation specific assertions
         expect(mapper.rules.length).equals(1);
     });
 
-    it('should be able to add rules', function() {
-        var mapper = new Mapper();
+    it('should be able to add rules', function () {
         expect(mapper).to.have.property('addRule');
         expect(mapper.addRule).to.be.a('function');
 
@@ -44,16 +60,25 @@ describe('graphument', function() {
     });
 
     // TODO: Remove implementation specific test
-    it('should add rules in specific format', function() {
-        var mapper = new Mapper();
-
+    it('should add rules in specific format', function () {
         mapper.addRule({spam: 'Spam'});
-        expect(mapper.rules).deep.equals([{spam: 'Spam'}]);
+        expect(mapper.rules).deep.equals([
+            {spam: 'Spam'}
+        ]);
 
         mapper.addRule('spam', {eggs: 'Spam'});
         expect(mapper.rules).deep.equals([
             {spam: 'Spam'},
             {eggs: 'Spam', name: 'spam'}
         ]);
+    });
+
+    it('should have Model constructor', function () {
+        expect(mapper).to.have.property('Model');
+        expect(mapper.Model).to.be.a('function');
+    });
+
+    it('should return the same Mapper each time', function () {
+        expect(mapper.Model).equals(mapper.Model);
     });
 });
