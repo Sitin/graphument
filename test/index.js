@@ -18,6 +18,7 @@ var Sut = require('..'),
 
 // Mocks
 neo4j = require('./mocks/neo4j');
+tweet = require('./mocks/tweet');
 
 
 describe('main module', function () {
@@ -67,7 +68,7 @@ describe('basic workflow', function () {
         graphument.driver = neo4j();
         result = graphument.connect('http://localhost:7474/db/data/')
             .then(function () {
-                return new tweetMapper.Model();
+                return new tweetMapper.Model(tweet);
             });
 
         expect(result).to.be.fulfilled.notify(done);
