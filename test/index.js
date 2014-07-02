@@ -38,6 +38,7 @@ describe('basic workflow', function () {
         var graphument, userMapper, tweetMapper, result;
 
         graphument = new Graphument();
+        graphument.driver = neo4j();
 
         userMapper = new graphument.Mapper('User', {
             id_str: graphument.unique()
@@ -45,13 +46,13 @@ describe('basic workflow', function () {
 
         tweetMapper = new graphument.Mapper('Tweet');
         tweetMapper.addRules({
-            status_id_str: graphument.unique(),
+            id_str: graphument.unique(),
             user: graphument.linked({
                 out: 'POSTED_BY',
                 in: 'POSTED',
                 mapper: userMapper
             }),
-            in_reply_to: graphument.group({
+            in_reply_to: graphument.collect({
                 condition: /^in_reply_to_(.+)/,
                 type: graphument.relation({
                     link: {
@@ -65,12 +66,13 @@ describe('basic workflow', function () {
             })
         });
 
-        graphument.driver = neo4j();
         result = graphument.connect('http://localhost:7474/db/data/')
             .then(function () {
-                return new tweetMapper.Model(tweet);
+                return new tweetMapper.Model(tweet).save();
             });
 
-        expect(result).to.be.fulfilled.notify(done);
+        expect(result)
+            .eventually.to.have.property('id_str', tweet.id_str)
+            .notify(done);
     });
 });

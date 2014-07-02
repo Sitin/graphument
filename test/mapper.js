@@ -15,17 +15,19 @@ chai.use(require("sinon-chai"));
 // SUT
 var Graphument = require('../lib/graphument'),
     graphument = new Graphument(),
-    Mapper = graphument.Mapper,
+    Mapper,
     mapper;
 
 
 beforeEach(function() {
     "use strict";
+    graphument = new Graphument();
+    Mapper = graphument.Mapper;
     mapper = new Mapper();
 });
 
 
-describe('graphument', function () {
+describe('mapper', function () {
     "use strict";
 
     it('should have rules accessor', function () {
