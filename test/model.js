@@ -48,4 +48,9 @@ describe('model', function () {
         model.spam = 'Eggs';
         expect(document).to.have.property('spam', 'Eggs');
     });
+
+    it('should provide access to graphument', function () {
+        expect(mapper.graphument).equals(graphument);
+        expect(function () { mapper.graphument = false; }).to.throw(Error);
+    });
 });

@@ -83,4 +83,9 @@ describe('mapper', function () {
     it('should return the same Mapper each time', function () {
         expect(mapper.Model).equals(mapper.Model);
     });
+
+    it('should provide access to graphument', function () {
+        expect(mapper.graphument).equals(graphument);
+        expect(function () { mapper.graphument = false; }).to.throw(Error);
+    });
 });
