@@ -23,11 +23,26 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc'
             }
         },
-        mochacli: {
-            all: ['test/**/*.js'],
+        mochacov: {
+            test: {
+                options: {
+                    reporter: 'spec',
+                    ui: 'tdd'
+                }
+            },
+            travis: {
+                options: {
+                    coveralls: true
+                }
+            },
+            coverage: {
+                options: {
+                    reporter: 'html-cov',
+                    output: 'coverage.html'
+                }
+            },
             options: {
-                reporter: ['spec'],
-                ui: 'tdd'
+                files: ['test/**/*.js']
             }
         },
         watch: {
@@ -44,8 +59,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-complexity');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-mocha-cli');
-    grunt.registerTask('test', ['complexity', 'jshint', 'mochacli', 'watch']);
-    grunt.registerTask('ci', ['complexity', 'jshint', 'mochacli']);
+    grunt.loadNpmTasks('grunt-mocha-cov');
+    grunt.registerTask('test', ['complexity', 'jshint', 'mochacov:test', 'watch']);
+    grunt.registerTask('build', ['complexity', 'jshint', 'mochacov:coverage']);
+    grunt.registerTask('ci', ['complexity', 'jshint', 'mochacov:travis']);
     grunt.registerTask('default', ['test']);
 };
