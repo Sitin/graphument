@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                     coveralls: true
                 }
             },
-            coverage: {
+            local: {
                 options: {
                     reporter: 'html-cov',
                     output: 'coverage.html'
@@ -56,12 +56,14 @@ module.exports = function (grunt) {
         }
     });
 
+    // Send coverage report to Coveralls.io only for Travis CI builds.
+    var mochaCoverageTask = 'mochacov:' + (process.env.TRAVIS ? 'travis' : 'local');
+
     grunt.loadNpmTasks('grunt-complexity');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-mocha-cov');
     grunt.registerTask('test', ['complexity', 'jshint', 'mochacov:test', 'watch']);
-    grunt.registerTask('build', ['complexity', 'jshint', 'mochacov:coverage']);
-    grunt.registerTask('ci', ['complexity', 'jshint', 'mochacov:travis']);
+    grunt.registerTask('ci', ['complexity', 'jshint', mochaCoverageTask]);
     grunt.registerTask('default', ['test']);
 };
