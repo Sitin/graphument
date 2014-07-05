@@ -1,6 +1,6 @@
 {
   "name": "graphument",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Document-graph mapper tool that coverts documents into graphs.",
   "main": "index.js",
   "scripts": {
