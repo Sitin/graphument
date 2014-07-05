@@ -4,7 +4,7 @@
   "description": "Document-graph mapper tool that coverts documents into graphs.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/grunt ci"
+    "test": "env && node_modules/.bin/grunt ci"
   },
   "repository": {
     "type": "git",
