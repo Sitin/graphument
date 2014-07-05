@@ -25,7 +25,8 @@
   "config": {
     "blanket": {
       "pattern": [
-        "graphument/lib"
+        "graphument/lib",
+        "graphument/index.js"
       ]
     }
   },
